@@ -34,10 +34,21 @@
                             <h1 v-text="product.title"></h1>
                             <p v-html="product.description"></p>
                             <p class="price">{{ product.price | formatPrice }}</p>
-                            <button class="btn btn-primary btn-lg" id="addToCart" v-on:click="addToCart" v-if="canAddToCart">
-                            Add to Cart</button>
-                            <button disabled="true" class=" btn btn-primary btn-lg" v-else="disableButton">Add to Cart</button>
+                            <button class="btn btn-primary btn-lg" id="addToCart"
+                            v-on:click="addToCart" v-if="canAddToCart">Add to Cart</button>
+                            <button disabled="true" class=" btn btn-primary btn-lg"
+                            v-else="disableButton">Add to Cart</button>
                             <button class="btn btn-primary btn-lg" v-on:click="emptyCart">Empty Cart</button>
+                            <span class="inventory-message"
+                            v-if="product.availableInventory - cartItemCount === 0">
+                            Currently unavailable</span>
+                            <span class="inventory-message"
+                            v-else-if="product.availableInventory - cartItemCount < 5">
+                            Only {{ product.availableInventory - cartItemCount }} left!</span>
+                            <span class="inventory-message" v-else>Buy Now!</span>
+                            <div class="rating">
+                                    <span v-for="n in 5"> ☆ </span>
+                                    </div>
                         </div>
                     </div>
                     <div v-else>
@@ -138,7 +149,8 @@
                         "organic goodness for your cat.",
                         price: 2000,
                         image: "images/product-fullsize.png",
-                        availableInventory: 5
+                        availableInventory: 10,
+                        rating: 3
                     },
                     cart: [],
                     showProduct: true,

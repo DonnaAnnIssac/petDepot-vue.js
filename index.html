@@ -47,11 +47,11 @@
                                 <div class="form-group">
                                     <div class="col-md-6">
                                         <strong>First Name:</strong>
-                                        <input v-model="order.firstName" class="form-control"/>
+                                        <input v-model.trim="order.firstName" class="form-control"/>
                                     </div>
                                     <div class="col-md-6">
                                         <strong>Last Name:</strong>
-                                        <input v-model="order.lastName" class="form-control"/>
+                                        <input v-model.trim="order.lastName" class="form-control"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -59,7 +59,7 @@
                                         <strong>Address:</strong>
                                     </div>
                                     <div class="col-md-12">
-                                        <input v-model="order.address" class="form-control"/>
+                                        <input v-model.trim="order.address" class="form-control"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -67,7 +67,7 @@
                                             <strong>City:</strong>
                                     </div>
                                     <div class="col-md-12">
-                                        <input v-model="order.city" class="form-control"/>
+                                        <input v-model.trim="order.city" class="form-control"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -75,17 +75,14 @@
                                         <strong>State:</strong>
                                         <select v-model="order.state" class="form-control">
                                             <option disabled value="">State</option>
-                                            <option>AL</option>
-                                            <option>AR</option>
-                                            <option>CA</option>
-                                            <option>NV</option>
+                                            <option v-for="(state, key) in states" v-bind:value="state">{{ key }}</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-6 col-md-offset-4">
                                         <strong>Zip / Postal Code:</strong>
-                                        <input v-model="order.zip" class="form-control"/>
+                                        <input v-model.number="order.zip" class="form-control"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -158,6 +155,22 @@
                         gift: 'Send as gift',
                         sendGift: 'Send as gift',
                         dontSendGift: 'Do not send as gift'
+                    },
+                    states : {
+                        'AP': 'Andhra Pradesh',
+                        'CH': 'Chandigarh',
+                        'DL': 'Delhi',
+                        'GJ': 'Gujarat',
+                        'JH': 'Jharkhand',
+                        'KA': 'Karnataka',
+                        'KL': 'Kerala',
+                        'MP': 'Madhya Pradesh',
+                        'MH': 'Maharashtra',
+                        'PB': 'Punjab',
+                        'RJ': 'Rajasthan',
+                        'TN': 'Tamil Nadu',
+                        'UP': 'Uttar Pradesh',
+                        'WB': 'West Bengal'
                     }
                 },
                 filters: {
@@ -172,8 +185,8 @@
                                 index += 4
                             }
                             let formatted =  priceArray.reverse().join("")
-                            return "$" + formatted
-                        } else return "$" + (price/100).toFixed(2)
+                            return "INR " + formatted
+                        } else return "INR " + (price/100).toFixed(2)
                     }
                 },
                 methods: {

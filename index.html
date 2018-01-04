@@ -47,8 +47,9 @@
                             Only {{ product.availableInventory - cartItemCount }} left!</span>
                             <span class="inventory-message" v-else>Buy Now!</span>
                             <div class="rating">
-                                    <span v-for="n in 5"> ☆ </span>
-                                    </div>
+                                <span v-bind:class="{'rating-active': checkRating(n)}"
+                                v-for="n in 5"> ☆ </span>
+                            </div>
                         </div>
                     </div>
                     <div v-else>
@@ -213,6 +214,9 @@
                     },
                     submitForm() {
                         alert('Submitted')
+                    },
+                    checkRating(n) {
+                        return this.product.rating - n >= 0
                     }
                 },
                 computed: {
